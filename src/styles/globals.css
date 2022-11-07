@@ -1,26 +1,122 @@
-html,
-body {
-  padding: 0;
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+[data-theme='dark'] {
+  --primary-color: #384aff;
+  --bg-color: #211f24;
+  --text-color: #8b949e;
+  --link-color: #ffffff;
+  --heading-color: #ffffff;
+  --border-color: #2d2d2d;
+  --header-bg: #1c1b20;
+  --block-bg: transparent;
+  --shadow-color: #fff1;
 }
 
-a {
-  color: inherit;
+[data-theme='light'] {
+  --primary-color: #384aff;
+  --bg-color: white;
+  --text-color: #57606a;
+  --link-color: #444444;
+  --heading-color: #111111;
+  --border-color: #e0e0e0;
+  --header-bg: white;
+  --block-bg: transparent;
+  --shadow-color: #0001;
+}
+
+@layer base {
+  @font-face {
+    font-family: 'Calibre';
+    src: url('/assets/fonts/Calibre-Medium-Custom.woff2') format('woff2');
+    font-weight: 500;
+    font-style: normal;
+  }
+
+  @font-face {
+    font-family: 'Calibre';
+    src: url('/assets/fonts/Calibre-Semibold-Custom.woff2') format('woff2');
+    font-weight: 600;
+    font-style: normal;
+  }
+
+  @font-face {
+    font-family: 'SpaceMono';
+    src: url('/assets/fonts/space-mono-v11-latin-700.woff2') format('woff2');
+  }
+
+  #__next {
+    @apply bg-skin-bg font-sans text-base text-skin-text antialiased;
+  }
+
+  body {
+    overflow-x: hidden;
+  }
+
+  h1 {
+    @apply text-2xl;
+  }
+  h2 {
+    @apply text-xl;
+  }
+  h3 {
+    @apply my-2 text-lg;
+  }
+  h4 {
+    @apply text-md;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply font-semibold text-skin-heading;
+  }
+
+  a,
+  button,
+  input {
+    @apply transition-colors;
+  }
+
+  b {
+    @apply font-semibold;
+  }
+
+  select {
+    @apply bg-skin-bg;
+  }
+}
+
+/* Shot UI kit */
+
+.s-input {
+  @apply block w-full rounded-full border border-skin-border bg-skin-bg py-2 px-3 text-skin-link outline-none focus-within:border-skin-text;
+}
+
+.s-error {
+  @apply flex items-center px-3 pt-2 text-red text-sm transition-all duration-200;
+}
+
+.lazy-loading {
+  @apply animate-pulse-fast bg-skin-border;
+}
+
+/* move this to link components */
+a,
+.a {
+  color: var(--link-color);
+}
+
+a:hover,
+.a:hover {
+  cursor: pointer;
   text-decoration: none;
 }
 
-* {
-  box-sizing: border-box;
-}
-
-@media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
-  }
-  body {
-    color: white;
-    background: black;
-  }
-}
+@import url('./markdown.css');
+@import url('./modal.css');
+@import url('./loading.css');
