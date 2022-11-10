@@ -15,8 +15,6 @@ export const NavbarAccount = () => {
   const user = useAppStore((state) => state.user);
   const setUser = useAppStore((state) => state.setUser);
 
-  console.log(user, 'test');
-
   const orbis = useOrbis();
 
   const checkUserIsConnected = async () => {
@@ -26,6 +24,7 @@ export const NavbarAccount = () => {
     if (res && res.status == 200) {
       setUser(res.details);
     }
+
     setLoading(false);
   };
 
@@ -41,7 +40,7 @@ export const NavbarAccount = () => {
   ) : user ? (
     <MenuAccount>
       <AvatarUser
-        src={`https://robohash.org/${user?.metadata.address}`}
+        src={user?.metadata.address}
         size="18"
         className="-mr-1 -ml-1 sm:mr-2 md:mr-2 lg:mr-2 xl:mr-2"
       />

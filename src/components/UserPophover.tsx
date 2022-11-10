@@ -5,11 +5,14 @@ import { Button } from './ui/Button';
 import { Float } from '@headlessui-float/react';
 import Link from 'next/link';
 import { shorten } from '@/helpers/utils';
+import { useCopy } from '@/composables/useCopy';
+import { ClipboardDocumentIcon } from '@heroicons/react/24/outline';
 
 export const UserPophover = ({ user }: { user: any }) => {
   const [show, setShow] = useState<boolean>(false);
   const timerOpen = useRef<any>(null);
   const timerClose = useRef<any>(null);
+  const { copyToClipboard } = useCopy();
 
   const open = () => {
     if (timerClose.current !== null) {
@@ -53,10 +56,7 @@ export const UserPophover = ({ user }: { user: any }) => {
           onMouseLeave={delayClose}
         >
           <div className="flex items-center">
-            <AvatarUser
-              src={`https://robohash.org/${user?.metadata.address}`}
-              size="28"
-            />
+            <AvatarUser src={user?.metadata.address} size="28" />
             <span className="ml-2 text-skin-link">
               {shorten(user?.metadata.address)}
             </span>
@@ -73,18 +73,22 @@ export const UserPophover = ({ user }: { user: any }) => {
               <div className="p-4">
                 <div className="flex">
                   <div>
-                    <AvatarUser
-                      src={`https://robohash.org/${user?.metadata.address}`}
-                      size="69"
-                    />
+                    <AvatarUser src={user?.metadata.address} size="69" />
                   </div>
                   <div>
                     <div className="truncate px-3 text-lg font-semibold leading-10 text-skin-heading">
                       {shorten(user?.metadata.address)}
                     </div>
                     <div className="flex px-3 min-w-0 cursor-pointer items-center rounded-full text-sm text-skin-text">
-                      <div className="truncate">
+                      <div
+                        className="flex cursor-pointer items-center rounded border px-1 text-xs"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          copyToClipboard(user?.metadata.address);
+                        }}
+                      >
                         {shorten(user?.metadata.address)}
+                        <ClipboardDocumentIcon className="ml-1 w-[1em] h-[1em]" />
                       </div>
                     </div>
                   </div>

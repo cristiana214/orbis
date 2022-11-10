@@ -7,13 +7,14 @@ import { useOrbis } from '@/orbis/useOrbis';
 import { Block } from '@/components/ui/Block';
 import { AvatarUser } from '@/components/ui/AvatarUser';
 import { shorten } from '@/helpers/utils';
-import Link from 'next/link';
 import { ButtonFollow } from '@/components/ButtonFollow';
 import { UserPophover } from '@/components/UserPophover';
 import { useInView } from 'react-cool-inview';
 import { ButtonComment } from '@/components/ButtonComment';
 import clsx from 'clsx';
 import { Comments } from '@/components/Comments';
+import { useCopy } from '@/composables/useCopy';
+import { ClipboardDocumentIcon } from '@heroicons/react/24/outline';
 
 const Post = () => {
   const {
@@ -22,6 +23,8 @@ const Post = () => {
 
   const orbis = useOrbis();
   const { observe, inView } = useInView();
+
+  const { copyToClipboard } = useCopy();
 
   const [loading, setLoading] = useState<boolean>(false);
   const [post, setPost] = useState<any>(null);
@@ -33,8 +36,6 @@ const Post = () => {
     if (error) {
       return <Error statusCode={404} />;
     }
-
-    console.log(data, 'posts');
 
     setPost(data);
     setLoading(false);
@@ -95,31 +96,39 @@ const Post = () => {
           <div className="mb-4 lg:fixed lg:mb-0 lg:w-[240px]">
             <Block className="overflow-hidden">
               <div className="lg:max-h-[calc(100vh-120px)] lg:overflow-y-auto">
-                <div className="block px-4 pt-4 text-center md:flex lg:block lg:px-0 lg:pt-0">
-                  <div className="flex lg:block">
-                    <AvatarUser
-                      src={`https://robohash.org/${post?.creator_details.metadata.address}`}
-                      size="80"
-                      className="lg:my-3"
-                    />
+                <div className="truncate lg:text-center">
+                  <div className="flex truncate lg:mt-3 lg:block">
+                    <div className="flex lg:justify-center">
+                      <AvatarUser
+                        src={post?.creator_details.metadata.address}
+                        size="80"
+                        className="lg:my-3"
+                      />
+                    </div>
                     <div className="mx-3 flex flex-col justify-center truncate text-left lg:block lg:text-center">
                       <h3 className="mb-[2px] flex items-center lg:justify-center">
                         <div className="mr-1 truncate">
                           {shorten(post?.creator_details.metadata.address)}
                         </div>
                       </h3>
-                      <div className="mb-[12px] text-skin-text">
-                        <Link
-                          href={`/${post?.creator_details.metadata.address}`}
+                      <div className="mb-[12px] flex space-x-2 px-3 leading-5 lg:justify-center">
+                        <div
+                          className="flex cursor-pointer items-center rounded border px-1 text-xs"
+                          onClick={() =>
+                            copyToClipboard(
+                              post?.creator_details.metadata.address,
+                            )
+                          }
                         >
                           {shorten(post?.creator_details.metadata.address)}
-                        </Link>
+                          <ClipboardDocumentIcon className="ml-1 w-[1em] h-[1em]" />
+                        </div>
                       </div>
                     </div>
                   </div>
 
                   <div className="flex flex-grow items-start justify-end gap-x-2 lg:mb-4 lg:justify-center">
-                    <ButtonFollow />
+                    <ButtonFollow creator={post?.creator} />
                   </div>
                 </div>
               </div>

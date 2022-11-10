@@ -40,14 +40,13 @@ export const AddComment = ({
       context,
     });
 
-    setLoading(true);
+    setLoading(false);
 
     if (res.status === 300) {
+      console.log(res);
       toast.error('Error creating post');
       return;
     }
-
-    setLoading(false);
 
     if (res.status === 200) {
       callback({

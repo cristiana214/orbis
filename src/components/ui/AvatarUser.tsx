@@ -1,4 +1,5 @@
 import clsx from 'clsx';
+import makeBlockie from 'ethereum-blockies-base64';
 import Image from 'next/image';
 
 export const AvatarUser = ({
@@ -16,7 +17,7 @@ export const AvatarUser = ({
     >
       <Image
         className={clsx('rounded-full bg-skin-border')}
-        src={src}
+        src={makeBlockie(src ?? 'shimone')}
         alt="avatar"
         width={Number(size)}
         height={Number(size)}
