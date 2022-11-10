@@ -6,15 +6,20 @@ import toast from 'react-hot-toast';
 export const Login = () => {
   const orbis = useOrbis();
   const setUser = useAppStore((state) => state.setUser);
+  const setUserLoading = useAppStore((state) => state.setUserLoading);
 
   const connect = async () => {
+    setUserLoading(true);
     const res = await orbis.connect();
 
     if (res.status == 200) {
       setUser(res.details);
+      toast.error('Connected');
     } else {
       toast.error('Error Connecting');
     }
+
+    setUserLoading(false);
   };
 
   return (

@@ -9,23 +9,24 @@ import { useEffect, useState } from 'react';
 import { useOrbis } from '@/orbis/useOrbis';
 
 export const NavbarAccount = () => {
-  const [loading, setLoading] = useState<boolean>(false);
   const showAuthModal = useAppStore((state) => state.showAuthModal);
   const setShowAuthModal = useAppStore((state) => state.setShowAuthModal);
   const user = useAppStore((state) => state.user);
   const setUser = useAppStore((state) => state.setUser);
+  const userLoading = useAppStore((state) => state.userLoading);
+  const setUserLoading = useAppStore((state) => state.setUserLoading);
 
   const orbis = useOrbis();
 
   const checkUserIsConnected = async () => {
-    setLoading(true);
+    setUserLoading(true);
     const res = await orbis.isConnected();
 
     if (res && res.status == 200) {
       setUser(res.details);
     }
 
-    setLoading(false);
+    setUserLoading(false);
   };
 
   useEffect(() => {
@@ -35,7 +36,7 @@ export const NavbarAccount = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user]);
 
-  return !user && loading ? (
+  return !user && userLoading ? (
     <Button loading />
   ) : user ? (
     <MenuAccount>
