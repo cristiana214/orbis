@@ -16,7 +16,7 @@ export const Posts = () => {
     setLoading(true);
     const { data, error } = await orbis.getPosts({
       context,
-      only_master: true,
+      // only_master: true,
     });
 
     if (error) {
@@ -24,8 +24,6 @@ export const Posts = () => {
       toast.error('Error querying posts');
       return;
     }
-
-    console.log(data, 'posts');
 
     setPosts(data);
     setLoading(false);

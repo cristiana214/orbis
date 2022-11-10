@@ -18,6 +18,13 @@ export const MenuAccount = ({
   const orbis = useOrbis();
   const setUser = useAppStore((state) => state.setUser);
 
+  const logout = () => {
+    const res = orbis.logout();
+    if (res.status === 200) {
+      setUser(null);
+    }
+  };
+
   return (
     <Menu as="div" className="inline-block h-full text-left">
       <Float
@@ -62,10 +69,7 @@ export const MenuAccount = ({
                       : 'bg-skin-header-bg text-skin-text',
                     'cursor-pointer whitespace-nowrap px-3 py-2',
                   )}
-                  onClick={() => {
-                    orbis.logout();
-                    setUser(null);
-                  }}
+                  onClick={() => logout()}
                 >
                   Log out
                 </div>

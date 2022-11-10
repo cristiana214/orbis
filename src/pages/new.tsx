@@ -1,3 +1,4 @@
+import { Login } from '@/components/Login';
 import { Block } from '@/components/ui/Block';
 import { Button } from '@/components/ui/Button';
 import { Form } from '@/components/ui/Form';
@@ -25,9 +26,12 @@ const New = () => {
       content: '',
     },
   });
+
   const { push } = useRouter();
   const user = useAppStore((state) => state.user);
   const [loading, setLoading] = useState<boolean>(false);
+
+  console.log(user, 'hello');
 
   const orbis = useOrbis();
 
@@ -45,7 +49,7 @@ const New = () => {
       context,
     });
 
-    setLoading(true);
+    setLoading(false);
 
     if (res.status === 300) {
       toast.error('Error creating post');
@@ -56,6 +60,16 @@ const New = () => {
       push(`/${user?.metadata.address}/${res.doc}`);
     }
   };
+
+  if (!user) {
+    return (
+      <Layout>
+        <div className="lg:flex">
+          <Login />
+        </div>
+      </Layout>
+    );
+  }
 
   return (
     <Layout>

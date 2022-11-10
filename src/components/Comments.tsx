@@ -26,8 +26,6 @@ export const Comments = ({ postId }: { postId: string }) => {
       return;
     }
 
-    console.log(data, 'comments');
-
     setComments(data);
     setLoading(false);
   };
