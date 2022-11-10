@@ -44,7 +44,9 @@ export const NavbarAccount = () => {
         size="18"
         className="-mr-1 -ml-1 sm:mr-2 md:mr-2 lg:mr-2 xl:mr-2"
       />
-      <span className="hidden sm:block">{shorten(user?.metadata.address)}</span>
+      <span className="hidden sm:block">
+        {user?.profile?.username ?? shorten(user?.metadata.address)}
+      </span>
     </MenuAccount>
   ) : (
     <>

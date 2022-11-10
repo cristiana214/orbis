@@ -9,7 +9,7 @@ dayjs.extend(relativeTime);
 export const PostsItem = ({ post }: { post: any }) => {
   return (
     <Link
-      href={`/${post.creator_details.metadata.address}/${post.stream_id}`}
+      href={`/${post.creator}/${post.stream_id}`}
       className="block text-skin-text"
     >
       <Block className="hover:border-skin-text">

@@ -6,7 +6,7 @@ import toast from 'react-hot-toast';
 import { PostsItem } from './PostsItem';
 import { Block } from './ui/Block';
 
-export const Posts = () => {
+export const Posts = ({ options }: { options?: any }) => {
   const user = useAppStore((state) => state.user);
   const [loading, setLoading] = useState(false);
   const [posts, setPosts] = useState<any>(null);
@@ -17,6 +17,7 @@ export const Posts = () => {
     const { data, error } = await orbis.getPosts({
       context,
       only_master: true,
+      ...options,
     });
 
     if (error) {
@@ -32,7 +33,7 @@ export const Posts = () => {
   useEffect(() => {
     loadPosts();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [user]);
+  }, [user, options]);
 
   return (
     <>
