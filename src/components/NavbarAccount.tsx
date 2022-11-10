@@ -5,13 +5,40 @@ import { Modal } from './ui/Modal';
 import { AvatarUser } from './ui/AvatarUser';
 import { Login } from './Login';
 import { shorten } from '@/helpers/utils';
+import { useEffect, useState } from 'react';
+import { useOrbis } from '@/orbis/useOrbis';
 
 export const NavbarAccount = () => {
+  const [loading, setLoading] = useState<boolean>(false);
   const showAuthModal = useAppStore((state) => state.showAuthModal);
   const setShowAuthModal = useAppStore((state) => state.setShowAuthModal);
   const user = useAppStore((state) => state.user);
+  const setUser = useAppStore((state) => state.setUser);
 
-  return user ? (
+  console.log(user, 'test');
+
+  const orbis = useOrbis();
+
+  const checkUserIsConnected = async () => {
+    setLoading(true);
+    const res = await orbis.isConnected();
+
+    if (res && res.status == 200) {
+      setUser(res.details);
+    }
+    setLoading(false);
+  };
+
+  useEffect(() => {
+    if (!user) {
+      checkUserIsConnected();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [user]);
+
+  return !user && loading ? (
+    <Button loading />
+  ) : user ? (
     <MenuAccount>
       <AvatarUser
         src={`https://robohash.org/${user?.metadata.address}`}

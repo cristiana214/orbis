@@ -3,50 +3,58 @@ import { useOrbis } from '@/orbis/useOrbis';
 import { useAppStore } from '@/store/useAppStore';
 import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
-import { PostsItem } from './PostsItem';
+import { AddComment } from './AddComment';
+import { CommentsItem } from './CommentsItem';
 import { Block } from './ui/Block';
 
-export const Posts = () => {
+export const Comments = ({ postId }: { postId: string }) => {
   const user = useAppStore((state) => state.user);
   const [loading, setLoading] = useState(false);
-  const [posts, setPosts] = useState<any>(null);
+  const [comments, setComments] = useState<any>(null);
   const orbis = useOrbis();
 
-  const loadPosts = async () => {
+  const loadComments = async () => {
     setLoading(true);
     const { data, error } = await orbis.getPosts({
       context,
-      only_master: true,
+      master: postId,
     });
 
     if (error) {
-      console.log('Error querying posts: ', error);
-      toast.error('Error querying posts');
+      console.log('Error querying comments: ', error);
+      toast.error('Error querying comments');
       return;
     }
 
-    console.log(data, 'posts');
+    console.log(data, 'comments');
 
-    setPosts(data);
+    setComments(data);
     setLoading(false);
   };
 
   useEffect(() => {
-    loadPosts();
+    loadComments();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user]);
 
+  const callback = (post: any) => {
+    const _comments = [...comments];
+
+    setComments([post, ..._comments]);
+  };
+
   return (
     <>
-      {!posts && loading ? (
+      {!comments && loading ? (
         <Block>
           <div className="lazy-loading mb-2 rounded-md w-[80%] h-[20px]" />
           <div className="lazy-loading rounded-md w-[50%] h-[20px]" />
         </Block>
       ) : (
         <div className="space-y-4">
-          {posts?.map((post: any, i: number) => (
-            <PostsItem key={`${post.id}_${i}`} post={post} />
+          <AddComment callback={callback} postId={postId} />
+          {comments?.map((post: any, i: number) => (
+            <CommentsItem key={`${post.id}_${i}`} post={post} />
           ))}
         </div>
       )}

@@ -13,6 +13,7 @@ import { UserPophover } from '@/components/UserPophover';
 import { useInView } from 'react-cool-inview';
 import { ButtonComment } from '@/components/ButtonComment';
 import clsx from 'clsx';
+import { Comments } from '@/components/Comments';
 
 const Post = () => {
   const {
@@ -83,6 +84,8 @@ const Post = () => {
                     <ButtonComment />
                   </div>
                 </div>
+
+                <Comments postId={id as string} />
               </div>
             </>
           )}

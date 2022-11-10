@@ -6,7 +6,7 @@ import { UserPophover } from './UserPophover';
 
 dayjs.extend(relativeTime);
 
-export const PostsItem = ({ post }: { post: any }) => {
+export const CommentsItem = ({ post }: { post: any }) => {
   return (
     <Link
       href={`/${post.creator_details.metadata.address}/${post.stream_id}`}
@@ -20,14 +20,10 @@ export const PostsItem = ({ post }: { post: any }) => {
             </div>
           </div>
           <div className="relative mb-1 break-words pr-[80px] leading-7">
-            <h3 className="inline pr-2">{post.content.title ?? 'Untitled'}</h3>
             <p className="mb-2 break-words text-md line-clamp-2">
               {post.content.body}
             </p>
           </div>
-        </div>
-        <div className="mt-3">
-          {dayjs(new Date(post.timestamp * 1000)).fromNow()}
         </div>
       </Block>
     </Link>
