@@ -96,7 +96,7 @@ export const UserPophover = ({ user }: { user: any }) => {
 
                 <div className="mt-4 flex w-full">
                   <div className="w-1/2 pr-2">
-                    <Link href={`/${user?.metadata.address}`}>
+                    <Link href={`/${user?.did}`}>
                       <Button primary className="w-full">
                         View Profile
                       </Button>

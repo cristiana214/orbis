@@ -16,6 +16,7 @@ export const MenuAccount = ({
 }) => {
   const { push, reload } = useRouter();
   const orbis = useOrbis();
+  const user = useAppStore((state) => state.user);
   const setUser = useAppStore((state) => state.setUser);
 
   const logout = () => {
@@ -56,7 +57,7 @@ export const MenuAccount = ({
                       : 'bg-skin-header-bg text-skin-text',
                     'cursor-pointer whitespace-nowrap px-3 py-2',
                   )}
-                  onClick={() => push(`/`)}
+                  onClick={() => push(`/${user.did}`)}
                 >
                   View profile
                 </div>
