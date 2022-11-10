@@ -14,7 +14,7 @@ export const Login = () => {
 
     if (res.status == 200) {
       setUser(res.details);
-      toast.error('Connected');
+      toast.success('Connected');
     } else {
       toast.error('Error Connecting');
     }
