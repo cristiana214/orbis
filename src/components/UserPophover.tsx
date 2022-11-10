@@ -58,7 +58,7 @@ export const UserPophover = ({ user }: { user: any }) => {
           <div className="flex items-center">
             <AvatarUser src={user?.metadata.address} size="28" />
             <span className="ml-2 text-skin-link">
-              {shorten(user?.metadata.address)}
+              {user?.profile?.username ?? shorten(user?.metadata.address)}
             </span>
           </div>
         </Popover.Button>

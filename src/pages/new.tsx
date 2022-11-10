@@ -31,8 +31,6 @@ const New = () => {
   const user = useAppStore((state) => state.user);
   const [loading, setLoading] = useState<boolean>(false);
 
-  console.log(user, 'hello');
-
   const orbis = useOrbis();
 
   const source = form.watch('content');

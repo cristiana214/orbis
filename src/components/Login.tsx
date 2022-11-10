@@ -9,7 +9,6 @@ export const Login = () => {
 
   const connect = async () => {
     const res = await orbis.connect();
-    console.log(res);
 
     if (res.status == 200) {
       setUser(res.details);

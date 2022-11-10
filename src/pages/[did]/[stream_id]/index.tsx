@@ -108,7 +108,8 @@ const Post = () => {
                     <div className="mx-3 flex flex-col justify-center truncate text-left lg:block lg:text-center">
                       <h3 className="mb-[2px] flex items-center lg:justify-center">
                         <div className="mr-1 truncate">
-                          {shorten(post?.creator_details.metadata.address)}
+                          {post?.creator_details.profile?.username ??
+                            shorten(post?.creator_details.metadata.address)}
                         </div>
                       </h3>
                       <div className="mb-[12px] flex space-x-2 px-3 leading-5 lg:justify-center">
