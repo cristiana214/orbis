@@ -9,7 +9,7 @@ import { Block } from './ui/Block';
 export const Posts = () => {
   const user = useAppStore((state) => state.user);
   const [loading, setLoading] = useState(false);
-  const [posts, setPosts] = useState(null);
+  const [posts, setPosts] = useState<any>(null);
   const orbis = useOrbis();
 
   const loadPosts = async () => {
