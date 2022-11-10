@@ -14,7 +14,7 @@ export const MenuAccount = ({
   children: ReactNode;
   placement?: Placement;
 }) => {
-  const { push } = useRouter();
+  const { push, reload } = useRouter();
   const orbis = useOrbis();
   const setUser = useAppStore((state) => state.setUser);
 
@@ -23,6 +23,8 @@ export const MenuAccount = ({
     if (res.status === 200) {
       setUser(null);
     }
+
+    reload();
   };
 
   return (

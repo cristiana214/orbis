@@ -16,7 +16,7 @@ export const Posts = () => {
     setLoading(true);
     const { data, error } = await orbis.getPosts({
       context,
-      // only_master: true,
+      only_master: true,
     });
 
     if (error) {
