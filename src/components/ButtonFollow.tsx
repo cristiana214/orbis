@@ -21,8 +21,6 @@ export const ButtonFollow = ({ creator }: { creator: any }) => {
       return;
     }
 
-    console.log(data);
-
     setIsFollowing(data);
   };
 
@@ -30,12 +28,17 @@ export const ButtonFollow = ({ creator }: { creator: any }) => {
     setLoading(true);
     const res = await orbis.setFollow(creator, follow);
 
+    setLoading(false);
+
+    if (res.status === 300) {
+      toast.error('Error set following');
+      return;
+    }
+
     if (res.status === 200) {
       setIsFollowing(follow);
       toast.success(follow ? 'Followed' : 'Unfollowed');
     }
-
-    setLoading(false);
   };
 
   useEffect(() => {
