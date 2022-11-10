@@ -5,8 +5,8 @@ interface AppState {
   setShowSidebar: (showSidebar: boolean) => void;
   showAuthModal: boolean;
   setShowAuthModal: (showAuthModal: boolean) => void;
-  user: string | null;
-  setUser: (user: string | null) => void;
+  user: any | null;
+  setUser: (user: any | null) => void;
 }
 
 export const useAppStore = create<AppState>((set) => ({

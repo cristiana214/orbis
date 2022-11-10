@@ -1,6 +1,7 @@
+import { useOrbis } from '@/orbis/useOrbis';
 import clsx from 'clsx';
 import Head from 'next/head';
-import { ReactNode } from 'react';
+import { ReactNode, useEffect } from 'react';
 import { useAppStore } from '../store/useAppStore';
 import { FlashNotifications } from './FlashNotifications';
 import { Navbar } from './Navbar';
@@ -10,6 +11,25 @@ import { Container } from './ui/Container';
 export const Layout = ({ children }: { children: ReactNode }) => {
   const showSidebar = useAppStore((state) => state.showSidebar);
   const setShowSidebar = useAppStore((state) => state.setShowSidebar);
+  const user = useAppStore((state) => state.user);
+  const setUser = useAppStore((state) => state.setUser);
+
+  const orbis = useOrbis();
+
+  const checkUserIsConnected = async () => {
+    const res = await orbis.isConnected();
+
+    if (res && res.status == 200) {
+      setUser(res.details);
+    }
+  };
+
+  useEffect(() => {
+    if (!user) {
+      checkUserIsConnected();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [user]);
 
   return (
     <>

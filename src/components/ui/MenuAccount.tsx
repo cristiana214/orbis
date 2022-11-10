@@ -4,6 +4,8 @@ import clsx from 'clsx';
 import { useRouter } from 'next/router';
 import { ReactNode } from 'react';
 import type { Placement } from '@floating-ui/dom';
+import { useOrbis } from '@/orbis/useOrbis';
+import { useAppStore } from '@/store/useAppStore';
 
 export const MenuAccount = ({
   children,
@@ -13,6 +15,8 @@ export const MenuAccount = ({
   placement?: Placement;
 }) => {
   const { push } = useRouter();
+  const orbis = useOrbis();
+  const setUser = useAppStore((state) => state.setUser);
 
   return (
     <Menu as="div" className="inline-block h-full text-left">
@@ -58,8 +62,9 @@ export const MenuAccount = ({
                       : 'bg-skin-header-bg text-skin-text',
                     'cursor-pointer whitespace-nowrap px-3 py-2',
                   )}
-                  onClick={async () => {
-                    console.log('logout');
+                  onClick={() => {
+                    orbis.logout();
+                    setUser(null);
                   }}
                 >
                   Log out

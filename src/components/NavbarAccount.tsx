@@ -14,11 +14,11 @@ export const NavbarAccount = () => {
   return user ? (
     <MenuAccount>
       <AvatarUser
-        src={`https://robohash.org/${user}`}
+        src={`https://robohash.org/${user?.metadata.address}`}
         size="18"
         className="-mr-1 -ml-1 sm:mr-2 md:mr-2 lg:mr-2 xl:mr-2"
       />
-      <span className="hidden sm:block">{shorten(user)}</span>
+      <span className="hidden sm:block">{shorten(user?.metadata.address)}</span>
     </MenuAccount>
   ) : (
     <>
