@@ -7,6 +7,9 @@ interface AppState {
   setShowAuthModal: (showAuthModal: boolean) => void;
   user: any | null;
   setUser: (user: any | null) => void;
+  // todo create hooks for user
+  userLoading: boolean;
+  setUserLoading: (userLoading: boolean) => void;
 }
 
 export const useAppStore = create<AppState>((set) => ({
@@ -16,4 +19,6 @@ export const useAppStore = create<AppState>((set) => ({
   setShowAuthModal: (showAuthModal) => set(() => ({ showAuthModal })),
   user: null,
   setUser: (user) => set(() => ({ user })),
+  userLoading: false,
+  setUserLoading: (userLoading) => set(() => ({ userLoading })),
 }));
